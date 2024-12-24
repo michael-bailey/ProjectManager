@@ -1,0 +1,31 @@
+@page "/my_tasks"
+
+@using Shared.Task
+@using Microsoft.AspNetCore.SignalR.Client
+
+@inject NavigationManager Navigation
+@inject TaskFetcher Fetcher
+
+<Container Fluid="true">
+
+    <h3>Tasks</h3>
+    
+    <DataGrid TItem="TaskData" Data="_tasks" @bind-SelectedRow="@_selectedTask">
+        <DataGridCommandColumn />
+        <DataGridColumn Field="@nameof(TaskData.SimpleId)" Caption="Task Number" Sortable="false" />
+        <DataGridColumn Field="@nameof(TaskData.Title)" Caption="Title" Editable Sortable="true" />
+        <DataGridColumn Field="@nameof(TaskData.Description)" Caption="Description" Editable />
+        <DataGridColumn Field="@nameof(TaskData.TaskStatusString)" Caption="Status" Editable Sortable="true" />
+    </DataGrid>
+</Container>
+
+@code {
+    
+    private List<TaskData> _tasks = [];
+    private TaskData? _selectedTask = null;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _tasks = await Fetcher.FetchTasks();
+    }
+}

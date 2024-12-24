@@ -1,0 +1,22 @@
+@page "/task/{TaskId}"
+
+@inject TaskFetcher Fetcher
+
+<Container>
+
+    <h3>Task</h3>
+    
+    <span></span>
+
+</Container>
+
+@code {
+    [Parameter] public string TaskId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var simpleId = TaskId.Trim('T');
+        var task = await Fetcher.CreateTask(simpleId);
+    }
+
+}
