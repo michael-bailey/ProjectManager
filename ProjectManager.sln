@@ -16,8 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScratchPad", "ScratchPad\ScratchPad.csproj", "{5F3DB3C0-0F31-42DA-B4F4-081DB3220A07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService1", "GrpcService1\GrpcService1.csproj", "{F55CCA16-74DC-4700-8360-CE8351705021}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,9 +54,5 @@ Global
 		{5F3DB3C0-0F31-42DA-B4F4-081DB3220A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F3DB3C0-0F31-42DA-B4F4-081DB3220A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F3DB3C0-0F31-42DA-B4F4-081DB3220A07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F55CCA16-74DC-4700-8360-CE8351705021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F55CCA16-74DC-4700-8360-CE8351705021}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F55CCA16-74DC-4700-8360-CE8351705021}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F55CCA16-74DC-4700-8360-CE8351705021}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
