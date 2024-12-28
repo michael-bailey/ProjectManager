@@ -27,6 +27,14 @@ public class TaskController( DatabaseContext ctx ) : ControllerBase
 		return _taskFetcher.AllTasks();
 	}
 
+	[HttpGet("T{simpleId}")]
+	public TaskData GetTaskById(string simpleId)
+	{
+		var parsedId = int.Parse(simpleId);
+		
+		return _taskFetcher.GetTask(parsedId);
+	}
+
 	[HttpPost]
 	public async Task<List<TaskEntity>> AddTask([FromBody] NewTaskInput input)
 	{

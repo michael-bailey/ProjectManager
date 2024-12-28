@@ -34,8 +34,9 @@ public class TaskFetcher( HttpClient httpClient )
 		
 		return await response.Content.ReadFromJsonAsync<List<TaskData>>() ?? throw new NotSupportedException();
 	}
-
-	public async Task<TaskData> CreateTask(string simpleId)
+	
+	/** fetches data for a single Task */
+	public async Task<TaskData> FetchTask(string simpleId)
 	{
 		var response = await httpClient.GetAsync($"/api/task/{simpleId}");
 		return await response.Content.ReadFromJsonAsync<TaskData>() ?? throw new NotSupportedException();
