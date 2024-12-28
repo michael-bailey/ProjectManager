@@ -1,7 +1,20 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+@rendermode InteractiveServer
 
-<h1>Hello, world!</h1>
+<MudContainer Gutters="true" MaxWidth="MaxWidth.Small">
+	<MudGrid Justify="Justify.Center">
+		<MudItem xs="12">
+			<PageTitle>Home</PageTitle>
+		</MudItem>
 
-Welcome to your new app.
+		<MudItem xs="12">
+			<MudPaper>
+				<MudText> Welcome to Project Manager</MudText>
+			</MudPaper>
+			<PageTitle>Home</PageTitle>
+		</MudItem>
+	</MudGrid>
+	
+</MudContainer>
+

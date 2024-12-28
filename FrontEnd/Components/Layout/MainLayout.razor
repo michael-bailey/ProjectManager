@@ -1,13 +1,19 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Connections.Features
+@inherits LayoutComponentBase
 
-<Layout>
-    <LayoutHeader>
-        <HeaderBar />
-    </LayoutHeader>
-    <LayoutContent>
+<MudThemeProvider @rendermode="InteractiveServer"/>
+<MudPopoverProvider @rendermode="InteractiveServer"/>
+<MudDialogProvider @rendermode="InteractiveServer"/>
+<MudSnackbarProvider @rendermode="InteractiveServer"/>
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />
+    </MudAppBar>
+    <MudMainContent >
         @Body
-    </LayoutContent>
-    <LayoutFooter>
-        Footer
-    </LayoutFooter>
-</Layout>
+    </MudMainContent>
+</MudLayout>
+

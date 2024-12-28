@@ -1,9 +1,7 @@
-using Blazorise;
-using Blazorise.Bootstrap5;
-using Blazorise.Icons.FontAwesome;
 using ExampleApp.Web;
 using FrontEnd.Components;
 using FrontEnd.Fetcher;
+using MudBlazor.Services;
 using ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +12,7 @@ builder.AddServiceDefaults();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddOutputCache();
+builder.Services.AddMudServices();
 
 Uri baseAddress = new("https+http://backend");
 
@@ -32,17 +30,6 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
     client.BaseAddress = baseAddress;
 });
 
-builder.Services.AddBlazorise(options =>
-{
-    options.Immediate = true;
-}).AddBootstrap5Providers()
-    .AddFontAwesomeIcons();
-
-builder.Services.AddSignalR(opts =>
-{
-
-});
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -56,13 +43,8 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
-app.UseOutputCache();
-
 app.MapStaticAssets();
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
-app.MapDefaultEndpoints();
 
 app.Run();

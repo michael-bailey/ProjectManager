@@ -1,22 +1,25 @@
 @page "/task/{TaskId}"
+@using Shared.Task
 
 @inject TaskFetcher Fetcher
 
-<Container>
 
-    <h3>Task</h3>
-    
-    <span></span>
 
-</Container>
+<MudContainer Gutters="true" MaxWidth="MaxWidth.Medium">
+	<MudCard>
+		<MudCardHeader>
+			<MudText>Task @TaskId</MudText>
+		</MudCardHeader>
 
-@code {
-    [Parameter] public string TaskId { get; set; }
+		<MudCardContent>
+			<MudText>@(_taskData?.Title ?? "Loading...")</MudText>
+			<MudText>@(_taskData?.Description ?? "Loading...")</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+		</MudCardActions>
+	</MudCard>
+</MudContainer>
 
-    protected override async Task OnInitializedAsync()
-    {
-        var simpleId = TaskId.Trim('T');
-        var task = await Fetcher.CreateTask(simpleId);
-    }
 
-}
+
