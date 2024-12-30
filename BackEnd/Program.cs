@@ -21,11 +21,20 @@ builder.AddServiceDefaults();
 
 builder.AddSqlServerDbContext<DatabaseContext>(connectionName: "database");
 
+builder.Services.AddSignalR(opts =>
+{
+    opts.EnableDetailedErrors = true;
+});
+
 builder.Services.AddIdentity<UserEntity, UserRole>(options =>
 {
     // options.SignIn.RequireConfirmedEmail = true;
     options.User.RequireUniqueEmail = true;
     options.Password.RequiredLength = 16;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = false;
 }).AddEntityFrameworkStores<DatabaseContext>();
 
 builder.Services
