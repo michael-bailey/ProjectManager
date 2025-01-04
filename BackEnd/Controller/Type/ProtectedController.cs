@@ -5,7 +5,7 @@ namespace BackEnd.Controller.Type;
 
 [ApiController]
 [Authorize]
-public class ProtectedController
+public class ProtectedController : ControllerBase
 {
 	
 }
