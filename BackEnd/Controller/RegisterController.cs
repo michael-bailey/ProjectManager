@@ -16,10 +16,18 @@ public class RegisterController(
 	ILogger<RegisterController> logger) : PublicController
 {
 	
-	[HttpPost("register")]
+	[HttpPost]
 	public async Task<IActionResult> Register(
 		NewUserRegistrationInput model)
 	{
+		
+		var user = await userManager.GetUserAsync(User);
+		
+		if (user != null)
+		{
+			logger.LogInformation($"Attept to register user when already logged in");
+			return BadRequest("User already Logged In");
+		}
 
 		if (!ModelState.IsValid)
 		{
@@ -29,9 +37,9 @@ public class RegisterController(
 		
 		logger.LogInformation("Creating New User");
 		
-		var user = new UserEntity
+		user = new UserEntity
 		{
-			UserName = model.Email,
+			UserName = model.Username,
 			Email = model.Email,
 			FirstName = model.FirstName,
 			LastName = model.LastName,
@@ -51,6 +59,6 @@ public class RegisterController(
 		
 		await signInManager.SignInAsync(user, true);
 
-		return Ok("User registered successfully");
+		return Ok(true);
 	}
 }
