@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using Shared;
 using Shared.Task;
+using TaskStatus = Shared.Task.TaskStatus;
 
 namespace FrontEnd.Fetcher;
 
@@ -29,7 +30,14 @@ public class TaskFetcher( HttpClient httpClient )
 	public async Task<List<TaskData>> CreateTasks(string title,
 		string description)
 	{
-		var content = JsonContent.Create(new NewTaskInput(title, description));
+		var content = JsonContent.Create(new NewTaskInput
+		{
+			Title = title,
+			Description = description,
+			Status = TaskStatus.None,
+			DueDate = null
+		});
+		
 		var response = await httpClient.PostAsync("api/task", content);
 		
 		return await response.Content.ReadFromJsonAsync<List<TaskData>>() ?? throw new NotSupportedException();
