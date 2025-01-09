@@ -16,6 +16,12 @@ public class SignInController(
 	RoleManager<UserRole> roleManager) : PublicController
 {
 
+	[HttpGet]
+	public IActionResult IsSignedIn()
+	{
+		return Ok(signInManager.IsSignedIn(User));
+	}
+
 	[HttpPost]
 	public async Task<IActionResult> SignInUser(UserSignInInput input)
 	{

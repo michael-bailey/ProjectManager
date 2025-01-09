@@ -1,9 +1,8 @@
-using BackEnd.Hubs;
+using BackEnd.Fetcher;
 using EntityLib;
 using EntityLib.Authentication;
 using EntityLib.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.ResponseCompression;
 using ServiceDefaults;
 
 
@@ -15,16 +14,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<TaskFetcher>();
+
 builder.Services.AddAuthentication();
 
 builder.AddServiceDefaults();
 
 builder.AddSqlServerDbContext<DatabaseContext>(connectionName: "database");
-
-builder.Services.AddSignalR(opts =>
-{
-    opts.EnableDetailedErrors = true;
-});
 
 builder.Services.AddIdentity<UserEntity, UserRole>(options =>
 {
@@ -35,19 +31,19 @@ builder.Services.AddIdentity<UserEntity, UserRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireDigit = false;
+    
 }).AddEntityFrameworkStores<DatabaseContext>();
 
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opts =>
     {
-        opts.LoginPath = "/Account/Login";
-        opts.LogoutPath = "/Account/Logout";
-        opts.AccessDeniedPath = "/Account/AccessDenied";
+
         opts.ExpireTimeSpan = TimeSpan.FromDays(7);
         opts.SlidingExpiration = true;
         opts.Cookie.HttpOnly = true;
         opts.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        opts.Cookie.SameSite = SameSiteMode.None;
     });
 
 builder.Services.AddSwaggerGen();
@@ -67,7 +63,5 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
-app.MapHub<TaskHub>("/taskhub");
 
 app.Run();

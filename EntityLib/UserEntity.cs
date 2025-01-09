@@ -7,12 +7,14 @@ public class UserEntity : IdentityUser<Guid>
 {
 	
 	[ProtectedPersonalData]
-	public string FirstName { get; set; }
+	public required string FirstName { get; set; }
 	
 	[ProtectedPersonalData]
-	public string LastName { get; set; }
+	public required string LastName { get; set; }
 	
 	[ProtectedPersonalData]
-	public string MiddleNames { get; set; }
+	public required string MiddleNames { get; set; }
+
+	public required List<TaskEntity> Tasks { get; set; }
 }
 

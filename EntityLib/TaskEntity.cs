@@ -15,47 +15,46 @@ namespace EntityLib;
  */
 [Table("Task")]
 [Index(nameof(SimpleId), IsUnique = true)]
-public class TaskEntity
+public class TaskEntity : IOwned<UserEntity>
 {
+	
+	// Fields
 	public Guid Id { get; init; }
 	
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int SimpleId { get; init; } 
 	
-	[Required]
 	[Column(TypeName = "varchar(256)")]
-	public String Title { get; set; }
+	public required string Title { get; set; }
 	
 	[Column(TypeName = "varchar(1024)")]
-	public String Description { get; set; }
+	public required string Description { get; set; }
 	
-	public DateTime CreateTime { get; set; }
+	public required DateTime CreateTime { get; init; }
+	public required DateTime UpdateTime { get; set; }
+	public required DateOnly? DueDate { get; set; }
+	public required TaskStatus Status { get; set; }
 	
-	public DateTime UpdateTime { get; set; }
+	public required Guid OwnerId { get; set; }
 	
-	public DateOnly? DueDate { get; set; }
+	// Edges
 	
-	public TaskStatus Status { get; set; }
+	public UserEntity Owner { get; set; } = null!;
 	
-	/**
-	 * Sets required fields 
-	 */
-	public static TaskEntity NewEntity(
-		String title,
-		String description = "",
-		DateOnly? dueDate = null
-	) {
-		
+	public static TaskEntity NewEntity(Guid userId, NewTaskInput inputs) 
+	{
 		return new TaskEntity
 		{
-			Title = title,
-			Description = description,
-		
+			Title = inputs.Title,
+			Description = inputs.Description,
+
 			CreateTime = DateTime.Now.ToUniversalTime(),
 			UpdateTime = DateTime.Now.ToUniversalTime(),
-			DueDate = dueDate,
-		
-			Status = TaskStatus.None
+			DueDate = inputs.DueDate,
+
+			Status = inputs.Status,
+			
+			OwnerId = userId
 		};
 	}
 
@@ -63,16 +62,18 @@ public class TaskEntity
 	{
 		var data = new TaskData
 		{
-			Id = this.Id,
-			SimpleId = this.SimpleId,
-			Title = this.Title,
-			Description = this.Description,
-			CreateTime = this.CreateTime,
-			UpdateTime = this.UpdateTime,
-			DueDate = this.DueDate,
-			Status = this.Status
+			Id = Id,
+			SimpleId = SimpleId,
+			Title = Title,
+			Description = Description,
+			CreateTime = CreateTime,
+			UpdateTime = UpdateTime,
+			DueDate = DueDate,
+			Status = Status
 		};
 
 		return data;
 	}
+
+	
 }

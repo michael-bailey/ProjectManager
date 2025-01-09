@@ -1,8 +1,12 @@
 using BackEnd.Attribute;
+using BackEnd.Controller.Type;
 using BackEnd.Fetcher;
 using EntityLib;
 using EntityLib.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using Newtonsoft.Json.Linq;
 using Shared.Task;
 
 namespace BackEnd.Controller;
@@ -10,47 +14,69 @@ namespace BackEnd.Controller;
 [Project(Name = "Tasks")]
 [Route("/api/[controller]/")]
 [ApiController]
-public class TaskController( DatabaseContext ctx ) : ControllerBase
+public class TaskController(
+	UserManager<UserEntity> userManager,
+	TaskFetcher taskFetcher) : ProtectedController
 {
-	private readonly TaskFetcher _taskFetcher = new TaskFetcher(ctx);
 	
-	[HttpGet("init")]
-	public List<TaskEntity> InitTasks()
-	{
-		var tasks = _taskFetcher.AllNoneStatus();
-		return tasks;
-	}
-	
-	[HttpGet]
+	[HttpGet("all")]
 	public List<TaskEntity> GetAllTasks()
 	{
-		return _taskFetcher.AllTasks();
+		return taskFetcher.AllTasks();
 	}
 
-	[HttpGet("T{simpleId}")]
-	public TaskData GetTaskById(string simpleId)
+	[HttpGet]
+	public async Task<ActionResult<ICollection<TaskData>>> GetAllUsersTasks()
 	{
-		var parsedId = int.Parse(simpleId);
-		
-		return _taskFetcher.GetTask(parsedId);
-	}
+		var user = await userManager.GetUserAsync(User);
 
+		if (user is null)
+			return Unauthorized("No user signed in.");
+
+		return (
+			from task in user.Tasks
+			select task.ToData())
+			.ToList();
+	}
+	
 	[HttpPost]
-	public async Task<List<TaskEntity>> AddTask([FromBody] NewTaskInput input)
+	public async Task<ActionResult<TaskEntity>> CreateTask(NewTaskInput input)
 	{
-		string title = input.title;
-		string description = input.description;
+		if (!ModelState.IsValid)
+			return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
 		
-		Console.WriteLine($"title value: {title}");
-		Console.WriteLine($"description value: {title}");
+		var user = await userManager.GetUserAsync(User);
 		
-		return await _taskFetcher.AddNewTask(title, description);
-	}
+		var title = input.Title;
+		var description = input.Description;
 
-	[HttpDelete]
-	public async Task<List<TaskEntity>> DeleteTask(Guid taskId)
+		if (user is null)
+			return Unauthorized("No user signed in.");
+
+		var task = await taskFetcher.AddNewTaskAsync(user.Id, input);
+		
+		return Ok(task);
+	}
+	
+	[HttpGet("T{simpleId:int}")]
+	public TaskData GetTaskById(int simpleId)
 	{
-		_taskFetcher.DeleteTask(taskId);
-		return _taskFetcher.AllTasks();
+		return taskFetcher.GetTask(simpleId);
+	}
+	
+	[HttpPatch("T{simpleId:int}")]
+	public ActionResult PatchTask(int simpleId, PatchTaskInput patches)
+	{
+		if (!ModelState.IsValid)
+			BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+		
+		return Ok(taskFetcher.PatchTask(simpleId, patches));
+	}
+	
+	[HttpDelete("T{simpleId:int}")]
+	public ActionResult<List<TaskEntity>> DeleteTask(int simpleId)
+	{
+		taskFetcher.DeleteTask(simpleId);
+		return taskFetcher.AllTasks();
 	}
 }

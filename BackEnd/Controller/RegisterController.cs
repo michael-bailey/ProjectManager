@@ -18,7 +18,7 @@ public class RegisterController(
 	
 	[HttpPost]
 	public async Task<IActionResult> Register(
-		NewUserRegistrationInput model)
+		NewUserInput model)
 	{
 		
 		var user = await userManager.GetUserAsync(User);
@@ -44,7 +44,8 @@ public class RegisterController(
 			FirstName = model.FirstName,
 			LastName = model.LastName,
 			// TODO: Set the middle name to be nullable
-			MiddleNames = model.MiddleNames ?? ""
+			MiddleNames = model.MiddleNames ?? "",
+			Tasks = []
 		};
 		
 		var result = await userManager.CreateAsync(user, model.Password);
