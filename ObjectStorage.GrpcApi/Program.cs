@@ -4,7 +4,7 @@ using ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddSqlServerDbContext<DatabaseContext>("object-database");
+builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
 
 // Add services to the container.
 builder.Services.AddGrpc();

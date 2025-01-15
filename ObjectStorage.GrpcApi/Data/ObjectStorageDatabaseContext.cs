@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ObjectStorage.GrpcApi.Data;
 
-public class DatabaseContext : DbContext
+public class ObjectStorageDatabaseContext(DbContextOptions opts) : DbContext(opts)
 {
 	public DbSet<BinaryObjectData> BinaryObjectDataSet { get; set; }
 }

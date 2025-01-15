@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ObjectStorage.GrpcApi.Data;
 
 /**
@@ -5,6 +8,8 @@ namespace ObjectStorage.GrpcApi.Data;
  */
 public class BinaryObjectData
 {
-	public required string Name { get; init; }
+	
+	public Guid Id { get; init; }
+	
 	public required byte[] Content { get; init; }
 }
