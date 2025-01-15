@@ -1,0 +1,14 @@
+@model HomeModel
+
+<h1>Home!</h1>
+
+<p>@Model.Message</p>
+
+@if (Model.IsSignedIn)
+{
+	<p>Is signed in.</p>
+}
+else
+{
+	<p>Is NOT signed in.</p>
+}

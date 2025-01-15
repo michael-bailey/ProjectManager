@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-StaticWorkerService-af48e2f4-ea03-40f1-aea9-d5324377da76</UserSecretsId>
+		<RootNamespace>StaticWorkerService</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ProjectManager.StaticWebApplication\ProjectManager.StaticWebApplication.csproj" />
+	  <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
+	</ItemGroup>
+</Project>

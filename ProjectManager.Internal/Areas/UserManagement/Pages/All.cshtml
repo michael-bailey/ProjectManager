@@ -1,0 +1,38 @@
+@page
+@model ProjectManager.Internal.Areas.UserManagement.Pages.AllModel
+
+@{
+	Layout = "_Layout";
+}
+
+<h1>All Users</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Username</th>
+			<th>Email</th>
+			<th>First name</th>
+			<th>Middle names</th>
+			<th>Last name</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var user in Model.Users)
+		{
+			<tr>
+				<td>@user.UserName</td>
+				<td>@user.Email</td>
+				<td>@user.FirstName</td>
+				<td>@user.MiddleNames</td>
+				<td>@user.LastName</td>
+				<td><a>  <li class="nav-item">
+					 <a
+						class="nav-link" asp-area="UserManagement"
+						asp-page="/All" asp
+						title="Manage">User Manager</a>
+					</li></a></td>
+			</tr>
+		}
+	</tbody>
+</table>

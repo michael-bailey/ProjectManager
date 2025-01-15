@@ -1,0 +1,11 @@
+@model UsersModel
+
+<h1>Registered Usernames</h1>
+
+<ul>
+	@foreach(var username in Model.UserNames)
+	{
+		<li>@username</li>
+	}
+</ul>
+

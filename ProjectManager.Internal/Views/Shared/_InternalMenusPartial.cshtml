@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Identity
+@using ProjectManager.LibEntity
+
+@inject SignInManager<UserEntity> SignInManager
+@inject UserManager<UserEntity> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+ <li class="nav-item">
+	<a
+	 class="nav-link" asp-area="UserManagement"
+	 asp-controller=""
+	 title="Manage">User Manager</a>
+ </li>
+}
+	
