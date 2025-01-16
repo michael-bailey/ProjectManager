@@ -1,5 +1,5 @@
 using Grpc.Core;
-using ObjectStorage.GrpcApi;
+using ObjectStorage.GrpcLib;
 
 namespace ObjectStorage.GrpcApi.Services;
 

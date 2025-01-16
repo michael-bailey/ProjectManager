@@ -1,5 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+// Mark: Databases
 var sql = builder.AddSqlServer("sql")
 	.WithDataVolume();
 
@@ -7,6 +8,9 @@ var mainDb = sql.AddDatabase("database");
 
 var objectDb = sql.AddDatabase("object-database");
 
+// Mark end: Databases
+
+// Mark: Project manager
 var migration = builder
 	.AddProject<Projects.ProjectManager_MigrationWorker>("migrations")
 	.WithReference(mainDb)
@@ -24,9 +28,19 @@ var internalUi = builder
 	.WaitFor(mainDb)
 	.WaitFor(migration);
 
+// Mark end: Project manager
+
+// Mark: Object storage system
+var objectServiceMigration = builder
+	.AddProject<Projects.ObjectStorage_MigrationWorker>("object-storage-migrations")
+	.WithReference(objectDb)
+	.WaitFor(objectDb);
+
 var objectService = builder
 	.AddProject<Projects.ObjectStorage_GrpcApi>("object-storage")
 	.WithReference(objectDb)
 	.WaitFor(objectDb);
+
+// - Mark end: Object storage system  
 
 builder.Build().Run();

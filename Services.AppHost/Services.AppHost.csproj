@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ObjectStorage.GrpcApi\ObjectStorage.GrpcApi.csproj" />
+	  <ProjectReference Include="..\ObjectStorage.MigrationWorker\ObjectStorage.MigrationWorker.csproj" />
 	  <ProjectReference Include="..\ProjectManager.Internal\ProjectManager.Internal.csproj" />
 	  <ProjectReference Include="..\ProjectManager.RestApi\ProjectManager.RestApi.csproj" />
 	  <ProjectReference Include="..\ProjectManager.MigrationWorker\ProjectManager.MigrationWorker.csproj" />

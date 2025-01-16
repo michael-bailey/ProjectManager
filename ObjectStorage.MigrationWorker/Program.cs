@@ -7,10 +7,10 @@ builder.Services.AddHostedService<Worker>();
 
 builder.AddServiceDefaults();
 
+builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
+
 builder.Services.AddOpenTelemetry()
 	.WithTracing(tracing => tracing.AddSource(Worker.ActivitySourceName));
-
-builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
 
 var host = builder.Build();
 host.Run();
