@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "ObjectStorage.GrpcLib";
+
+package objectStorage;
+
+service ObjectStorage {
+  rpc UploadObject (UploadRequest) returns (UploadResult);
+  rpc DownloadObject (DownloadRequest) returns (DownloadResult);
+}
+
+message UploadRequest {
+  bytes content = 1;
+}
+
+message UploadResult {
+  oneof result {
+    string id = 1;
+    string error = 2;
+  }
+}
+
+message DownloadRequest {
+  string id = 1;
+}
+
+message DownloadResult {
+  oneof result {
+    Object content = 1;
+    string error = 2;
+  }
+}
+
+message Object {
+  string id = 1;
+  bytes content = 2;
+}

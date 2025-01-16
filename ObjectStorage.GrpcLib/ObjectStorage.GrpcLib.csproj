@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>ObjectStorage.GrpcLib</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Protos\greet.proto" GrpcServices="Both" Access="Public" />
+	  <Protobuf Include="Protos\object.proto" GrpcServices="Both" Access="Public" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.18.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.40.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
+	</ItemGroup>
+
+</Project>
