@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectStorage.MigrationWork
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectStorage.GrpcLib", "ObjectStorage.GrpcLib\ObjectStorage.GrpcLib.csproj", "{75EFCC19-2E0F-4B97-8B24-1FC7CD905096}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectStorage.WWW", "ObjectStorage.WWW\ObjectStorage.WWW.csproj", "{AD9874D8-7D35-4330-AF48-04B3482B7E1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,5 +80,9 @@ Global
 		{75EFCC19-2E0F-4B97-8B24-1FC7CD905096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75EFCC19-2E0F-4B97-8B24-1FC7CD905096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75EFCC19-2E0F-4B97-8B24-1FC7CD905096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD9874D8-7D35-4330-AF48-04B3482B7E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9874D8-7D35-4330-AF48-04B3482B7E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD9874D8-7D35-4330-AF48-04B3482B7E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD9874D8-7D35-4330-AF48-04B3482B7E1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
