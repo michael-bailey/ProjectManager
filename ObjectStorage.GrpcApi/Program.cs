@@ -1,15 +1,24 @@
+using Microsoft.VisualBasic;
 using ObjectStorage.GrpcApi.Data;
+using ObjectStorage.GrpcApi.Repositories;
 using ObjectStorage.GrpcApi.Services;
 using ServiceDefaults;
+using Constants = ObjectStorage.GrpcLib.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(opts =>
+{
+	opts.MaxReceiveMessageSize = Constants.MAX_UPLOAD_SIZE;
+	opts.MaxSendMessageSize = Constants.MAX_UPLOAD_SIZE;
+});
 
 builder.AddServiceDefaults();
+
+builder.Services.AddSingleton<BinaryObjectDataRepository>();
 
 var app = builder.Build();
 
