@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ObjectStorage.GrpcApi.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddObjectStorageData : Migration
+    public partial class InitialMigrationAddedDatatype : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,8 @@ namespace ObjectStorage.GrpcApi.Data.Migrations
                 name: "BinaryObjectDataSet",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Content = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Content = table.Column<byte[]>(type: "bytea", nullable: false)
                 },
                 constraints: table =>
                 {

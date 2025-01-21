@@ -8,7 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Protobuf Include="Protos\greet.proto" GrpcServices="Both" Access="Public" />
 	  <Protobuf Include="Protos\object.proto" GrpcServices="Both" Access="Public" />
 	</ItemGroup>
 	

@@ -7,7 +7,7 @@ builder.Services.AddHostedService<Worker>();
 
 builder.AddServiceDefaults();
 
-builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
+builder.AddNpgsqlDbContext<ObjectStorageDatabaseContext>("object-database");
 
 builder.Services.AddOpenTelemetry()
 	.WithTracing(tracing => tracing.AddSource(Worker.ActivitySourceName));

@@ -57,8 +57,13 @@ public class Worker(
 
         await strategy.ExecuteAsync(async () =>
         {
+            var pendingChanges =
+                await dbContext.Database.GetPendingMigrationsAsync(
+                    cancellationToken);
+            
+            
             // Run migrations without explicit transaction as ExecutionStrategy handles retries.
-            if ((await dbContext.Database.GetPendingMigrationsAsync(cancellationToken)).Any())
+            if (pendingChanges.Any())
             {
                 await dbContext.Database.MigrateAsync(cancellationToken);
             }

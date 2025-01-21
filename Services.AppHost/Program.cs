@@ -6,7 +6,9 @@ var sql = builder.AddSqlServer("sql")
 
 var mainDb = sql.AddDatabase("database");
 
-var objectDb = sql.AddDatabase("object-database");
+var postgresSql = builder.AddPostgres("postgres-sql");
+
+var objectDb = postgresSql.AddDatabase("object-database");
 
 // Mark end: Databases
 

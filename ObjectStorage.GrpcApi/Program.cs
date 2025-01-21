@@ -7,7 +7,7 @@ using Constants = ObjectStorage.GrpcLib.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddSqlServerDbContext<ObjectStorageDatabaseContext>("object-database");
+builder.AddNpgsqlDbContext<ObjectStorageDatabaseContext>("object-database");
 
 // Add services to the container.
 builder.Services.AddGrpc(opts =>
@@ -18,7 +18,7 @@ builder.Services.AddGrpc(opts =>
 
 builder.AddServiceDefaults();
 
-builder.Services.AddSingleton<BinaryObjectDataRepository>();
+builder.Services.AddScoped< IObjectDataRepository, BinaryObjectDataRepository>();
 
 var app = builder.Build();
 
