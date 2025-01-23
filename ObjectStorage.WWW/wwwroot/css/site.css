@@ -29,3 +29,21 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+#UploadForm
+{
+  
+}
+
+input[type=file]::content
+{
+  display: none;
+}
+
+input[type=file]::file-selector-button
+{
+  border-color: gray;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+}

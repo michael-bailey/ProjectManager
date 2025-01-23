@@ -1,4 +1,6 @@
 
+using Grpc.Net.Client;
+using ObjectStorage.GrpcLib;
 using ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddRazorPages();
+builder.Services
+	.AddGrpcClient<ObjectStorage.GrpcLib.ObjectStorage.ObjectStorageClient>(opts =>
+	{
+		opts.Address = new Uri("http://object-storage");
+		opts.ChannelOptionsActions.Add(o =>
+		{
+			o.MaxSendMessageSize = Constants.MAX_UPLOAD_SIZE;
+			o.MaxReceiveMessageSize = Constants.MAX_UPLOAD_SIZE;
+		});
+	});
 
 var app = builder.Build();
 
