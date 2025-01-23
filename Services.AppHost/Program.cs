@@ -43,6 +43,12 @@ var objectService = builder
 	.WithReference(objectDb)
 	.WaitFor(objectDb);
 
+var objectWww = builder
+	.AddProject<Projects.ObjectStorage_WWW>("object-www")
+	.WithReference(objectService)
+	.WaitFor(objectService)
+	.WithExternalHttpEndpoints();
+
 // - Mark end: Object storage system  
 
 builder.Build().Run();

@@ -4,7 +4,19 @@
 	ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form id="UploadForm" method="post" enctype="multipart/form-data">
+	<span>Drag Files here or select below</span>
+	<input id="file" class="FileInput" value="Select File..." type="file" asp-for="Upload"/>
+	<input type="submit"/>
+</form>
+
+@if (Model.UploadError is not null)
+{
+	<p>@Model.UploadError</p>
+}
+
+@if(Model.DownloadId is not null)
+{
+	<span>Object Id: @Model.DownloadId</span>
+	<a asp-page="Download" asp-route-id="@Model.DownloadId">Copy this link.</a>
+}
